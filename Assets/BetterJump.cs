@@ -5,6 +5,7 @@ using UnityEngine;
 public class BetterJump : MonoBehaviour {
 
     public float multiplicadorCaida = 2.5f;
+    public float multiplicadorPlaneo = 0.5f;
     public float lowJumpMultiplier = 2f;
 
     Rigidbody2D rb;
@@ -14,7 +15,9 @@ public class BetterJump : MonoBehaviour {
 	}
     void FixedUpdate()
     {
-        if (rb.velocity.y < 0)
+        if(rb.velocity.y < 0 && Input.GetButton("Jump"))
+            rb.gravityScale = multiplicadorPlaneo;
+        else if (rb.velocity.y < 0 && !Input.GetButton("Jump"))
             rb.gravityScale = multiplicadorCaida;
         else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
             rb.gravityScale = lowJumpMultiplier;
